@@ -4,4 +4,17 @@
     text-align: center;
     color: blue;
     padding: 30px 30px;
+    background-color: white;
+}
+
+#main-content {
+    text-align: center;
+    margin: 0 auto;
+}
+
+/* some styling for the word to be guesssed */
+#word-text {
+    font-size: 18px;
+    text-transform: capitalize;
+    /* text-decoration: underline; */
 }
