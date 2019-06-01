@@ -1,0 +1,7 @@
+/* Custom CSS to override some Bootstrap CSS */
+
+#heading {
+    text-align: center;
+    color: blue;
+    padding: 30px 30px;
+}
