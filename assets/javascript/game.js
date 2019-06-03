@@ -18,23 +18,28 @@ var lossesText = document.getElementById("losses-text");
 var wordDisplay = document.getElementById("word-text");
 var guessesRemainingText = document.getElementById("guessesRemaining-text");
 
+//function to assign word to game, to be called upon page load
+function startGame() {
+    word = wordBank[Math.floor(Math.random() * wordBank.length)];
+    console.log("Word selected is:", word);
+    //Restart Guesses left
+    guessesLeft = 10;
+    guessesRemainingText.textContent = "Guesses Left: " + guessesLeft;
+};
+
+
+//on page load, start function to start game - now first word is selected upon page load
+document.addEventListener("load", startGame());
+// console.log(word);
+
+//onkey up events after is initialized
 
 document.onkeyup = function (event) {
 
-    //initializing word to be guessed in global scope so it can be referenced in functions withour resetting it
-    var word = wordBank[Math.floor(Math.random() * wordBank.length)];
-
     //User hits Enter: Starts/restarts the game, sets guesses remaining back to default as well as clearing the board and generating a new word.
     if (event.which == 13) {
-        introText.textContent = "Good luck! Press Enter again to restart.";
+        introText.textContent = "Good luck!";
         wordDisplay.textContent = "";
-
-        //Restart Guesses left
-        guessesLeft = 10;
-        guessesRemainingText.textContent = "Guesses Left: " + guessesLeft;
-
-        //generate random word from word bank
-        var word = wordBank[Math.floor(Math.random() * wordBank.length)];
 
         //my method of creating the blank template for the word to be guessed.
         //idea is to split the word into an array of characters. If a character is a letter, make it a _; if it's a _, make it a -
@@ -49,9 +54,10 @@ document.onkeyup = function (event) {
         };
     }
 
+    //.indexOf and includes
 
     //User enters a valid character
-    else  {
+    else {
         var wordSplit = word.split("");
 
         //if-else block dealing with correct and incorrect responses
@@ -61,3 +67,5 @@ document.onkeyup = function (event) {
         }
     };
 };
+
+//should make function to check guessRemaining after each input, end game when its 0
