@@ -14,7 +14,7 @@ var wordBank = [
 ];
 
 // array to store incorrect letters guessed. Must be reset for each game
-var lettersGuessed = [];
+// var blank = [];
 
 //html nodes to change upon game start
 var introText = document.getElementById("intro-text");
@@ -24,27 +24,16 @@ var wordDisplay = document.getElementById("word-text");
 var guessesRemainingText = document.getElementById("guessesRemaining-text");
 var lettersGuessedText = document.getElementById("lettersGuessed-text");
 
-//function to replace index of a string for updating display
-function setCharAt(str,index,chr) {
-    if(index > str.length-1) return str;
-    return str.substr(0,index) + chr + str.substr(index+1);
-}
-
-
-
-
-
-
 
 //function to assign word to game, to be called upon page load
 function startGame() {
+
+    blank = [];
 
     //taking out var in a declaration makes it a global variable
     word = wordBank[Math.floor(Math.random() * wordBank.length)];
     console.log("Word selected is:", word);
 
-    //clear displayed word
-    wordDisplay.textContent = "";
 
     //clear lettersGuessed array
     lettersGuessed = [];
@@ -56,11 +45,15 @@ function startGame() {
 
     for (let i = 0; i < word.length; i++) {
         if (wordSplit[i] !== " ") {
-            wordDisplay.textContent += "_ ";
+            blank.push("_");
         } else if (wordSplit[i] == " ") {
-            wordDisplay.textContent += "- ";
-        };
+            blank.push("-");
+        }
     };
+    wordDisplay.innerHTML = blank.join(" ");
+    console.log("blank: ", blank);
+    console.log("blank.join: ", blank.join(" "));
+
 
     //Restart Guesses left
     guessesLeft = 10;
@@ -79,6 +72,25 @@ function lossCheck() {
         alert("You lose! The word was " + word);
         startGame();
     }
+}
+
+
+function winCheck() {
+    var wordCheck = word.split("");
+    for (let i = 0; i < wordCheck.length; i++) {
+        if (wordCheck[i] == "-") {
+            wordCheck[i] = " "
+        };
+    }
+    
+    if (JSON.stringify(blank)==JSON.stringify(word.split(""))) {
+        wins++;
+        alert("you won");
+        startGame();
+    }
+    console.log("wordsplit:", word.split("") )
+    console.log("wordCheck", wordCheck);
+    console.log("blank", blank);
 }
 
 
@@ -124,7 +136,15 @@ document.onkeyup = function (event) {
         else {
             //var for correct character
             var charGuessed = event.key;
-           
+
+            for (i = 0; i < wordSplit.length; i++) {
+                if (charGuessed == wordSplit[i]) {
+                    blank[i] = charGuessed;
+                    wordDisplay.innerHTML = blank.join(" ");
+                    winCheck();
+                }
+            }
+
             //Great difficulty here, cannot figure out how to change display of word given a correct character
         }
 
