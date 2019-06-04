@@ -8,7 +8,9 @@ var guessesLeft = 10;
 var wordBank = [
     "hagia sophia",
     "big ben",
-    "eiffel tower"
+    "eiffel tower",
+    "colosseum",
+    "great wall"
 ];
 
 // array to store incorrect letters guessed. Must be reset for each game
@@ -22,9 +24,22 @@ var wordDisplay = document.getElementById("word-text");
 var guessesRemainingText = document.getElementById("guessesRemaining-text");
 var lettersGuessedText = document.getElementById("lettersGuessed-text");
 
+//function to replace index of a string for updating display
+function setCharAt(str,index,chr) {
+    if(index > str.length-1) return str;
+    return str.substr(0,index) + chr + str.substr(index+1);
+}
+
+
+
+
+
+
 
 //function to assign word to game, to be called upon page load
 function startGame() {
+
+    //taking out var in a declaration makes it a global variable
     word = wordBank[Math.floor(Math.random() * wordBank.length)];
     console.log("Word selected is:", word);
 
@@ -34,7 +49,6 @@ function startGame() {
     //clear lettersGuessed array
     lettersGuessed = [];
     lettersGuessed.textContent = "";
-    console.log("LettersGuessed:", lettersGuessed);
 
 
     //split Word into an array of single characters. For each space, put a hyphen. Else, put a '_ '
@@ -44,7 +58,7 @@ function startGame() {
         if (wordSplit[i] !== " ") {
             wordDisplay.textContent += "_ ";
         } else if (wordSplit[i] == " ") {
-            wordDisplay.textContent += "-";
+            wordDisplay.textContent += "- ";
         };
     };
 
@@ -53,12 +67,16 @@ function startGame() {
     guessesRemainingText.textContent = "Guesses Left: " + guessesLeft;
 };
 
+
+
+
+
 //check if user has run out of guesses. If so, end the game (with an alert for now), start a new game, and icrement Losses by 1
 function lossCheck() {
     if (guessesLeft == 0) {
-        losses+=1;
+        losses += 1;
         lossesText.textContent = losses;
-        alert("You lose! The word was "+ word);
+        alert("You lose! The word was " + word);
         startGame();
     }
 }
@@ -104,8 +122,10 @@ document.onkeyup = function (event) {
 
         // Case to deal with correct character
         else {
+            //var for correct character
             var charGuessed = event.key;
-            
+           
+            //Great difficulty here, cannot figure out how to change display of word given a correct character
         }
 
     }
