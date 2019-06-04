@@ -53,8 +53,7 @@ function startGame() {
         }
     };
     wordDisplay.innerHTML = blank.join(" ");
-    console.log("blank: ", blank);
-    console.log("blank.join: ", blank.join(" "));
+ 
 
 
     //Restart Guesses left
@@ -87,6 +86,7 @@ function winCheck() {
     
     if (JSON.stringify(blank)==JSON.stringify(wordCheck)) {
         wins++;
+        winText.textContent = wins;
         alert("you won");
         startGame();
     }
