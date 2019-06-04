@@ -78,17 +78,17 @@ function lossCheck() {
 function winCheck() {
     var wordCheck = word.split("");
     for (let i = 0; i < wordCheck.length; i++) {
-        if (wordCheck[i] == "-") {
-            wordCheck[i] = " "
+        if (wordCheck[i] == " ") {
+            wordCheck[i] = "-"
         };
     }
     
-    if (JSON.stringify(blank)==JSON.stringify(word.split(""))) {
+    if (JSON.stringify(blank)==JSON.stringify(wordCheck)) {
         wins++;
         alert("you won");
         startGame();
     }
-    console.log("wordsplit:", word.split("") )
+
     console.log("wordCheck", wordCheck);
     console.log("blank", blank);
 }
