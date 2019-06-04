@@ -10,7 +10,9 @@ var wordBank = [
     "big ben",
     "eiffel tower",
     "colosseum",
-    "great wall"
+    "great wall",
+    "taj mahal",
+    "great pyramid"
 ];
 
 // array to store incorrect letters guessed. Must be reset for each game
